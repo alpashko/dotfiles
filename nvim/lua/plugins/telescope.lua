@@ -22,5 +22,6 @@ return {
         vim.keymap.set("n", "<space>fp", function()
             builtin.find_files { cwd = "~/plugins/" }
         end)
+        vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action)
     end,
 }
