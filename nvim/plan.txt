@@ -1,0 +1,20 @@
+  .config/
+     nvim/
+        lua/
+	   config.lua
+	   keymap.lua
+	   plugins.lua
+	   autocmd.lua
+	   lsp.lua
+	lsp/
+	   rust!!! blazing FAST!!!! 
+	   lua.lua
+	after/
+	init.lua 
+
+	- vim.pack
+	- lualine +
+	- mason +
+	- netrw
+	- blinc.cmp +
+	- fzf +
