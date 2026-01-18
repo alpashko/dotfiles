@@ -2,8 +2,8 @@ window-height = 45
 window-width = 160
 
 theme = dark_plus
-font-family = "Berkeley Mono"
-font-size = "16"
+font-family = "Iosevka"
+font-size = "20"
 font-style = Regular
 macos-option-as-alt = true
 

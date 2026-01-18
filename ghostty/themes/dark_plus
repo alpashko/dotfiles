@@ -2,7 +2,7 @@
 
 # Core colors
 # background = #20242C
-background = #111111
+background = #181818
 foreground = #D4D4D4
 cursor-color = #AEAFAD
 selection-background = #264F78
