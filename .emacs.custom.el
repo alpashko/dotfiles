@@ -7,7 +7,8 @@
    '("e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7"
      default))
  '(package-selected-packages
-   '(go-mode gruber-darker-theme magit markdown-mode paredit rust-mode)))
+   '(dockerfile-mode go-mode gruber-darker-theme magit markdown-mode
+                     multiple-cursors paredit rust-mode yaml yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
