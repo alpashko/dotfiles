@@ -1,6 +1,6 @@
 #nvim|symlink|.config
 #tmux|symlink|.config
-#ghostty|symlink|.config
+ghostty|symlink|.config
 #.zsh_profile|symlink|
 .emacs|symlink|
 .emacs.rc|symlink|
