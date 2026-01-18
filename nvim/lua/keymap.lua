@@ -10,8 +10,9 @@ vim.keymap.set("n", "<leader>en", function()
 end)
 
 local opts = { noremap = true, silent = true }
+vim.keymap.set("n", "grr", function() fzf.lsp_references() end, opts)
 vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-vim.keymap.set("n", "<leader>fo", ":lua vim.lsp.buf.format()<CR>", opts)
+vim.keymap.set("n", "<leader>fo", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
 
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
@@ -35,8 +36,8 @@ vim.keymap.set("n", "<leader>w", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 
 vim.keymap.set("n", "<leader>st", function()
-    vim.cmd.vnew()
-    vim.cmd.term()
-    vim.cmd.wincmd("J")
-    vim.api.nvim_win_set_height(0, 15)
+	vim.cmd.vnew()
+	vim.cmd.term()
+	vim.cmd.wincmd("J")
+	vim.api.nvim_win_set_height(0, 15)
 end)
