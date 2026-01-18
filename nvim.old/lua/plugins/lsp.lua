@@ -16,7 +16,7 @@ return {
         },
         config = function()
             local capabilities = require("blink.cmp").get_lsp_capabilities()
-            local servers = { "lua_ls", "pyright", "gopls", "bashls", "clangd" }
+            local servers = { "lua_ls", "ty", }
 
             for _, server in ipairs(servers) do
                 vim.lsp.config(server, {
@@ -29,7 +29,7 @@ return {
                 group = vim.api.nvim_create_augroup("my.lsp", {}),
                 callback = function(args)
                     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-                    if vim.tbl_contains({ "lua", "go", "gomod", "gowork", "gotmpl", "bash", "sh", "terraform", "c", "h" }, vim.bo.filetype) then
+                    if vim.tbl_contains({ "lua", "py" }, vim.bo.filetype) then
                         if not client:supports_method("textDocument/willSaveWaitUntil")
                             and client:supports_method("textDocument/formatting") then
                             vim.api.nvim_create_autocmd("BufWritePre", {
