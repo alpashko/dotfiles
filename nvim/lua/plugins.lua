@@ -22,7 +22,7 @@ require("mason").setup({})
 
 -- 3
 vim.pack.add({
-	{ src = gh("ibhagwan/fzf-lua" )},
+	{ src = gh("ibhagwan/fzf-lua") },
 })
 
 local actions = require('fzf-lua.actions')
@@ -170,4 +170,28 @@ require("colorbuddy").setup({
 -- 7
 vim.pack.add({
 	{ src = gh("mbbill/undotree") },
+})
+
+-- 8
+vim.pack.add({
+	{ src = gh("folke/tokyonight.nvim") },
+})
+
+-- 9
+vim.pack.add({
+	{ src = gh("lewis6991/gitsigns.nvim") },
+})
+
+require("gitsigns").setup({
+	current_line_blame = true,
+	current_line_blame_opts = {
+		delay = 300,
+		virt_text_pos = "eol",
+	},
+	watch_gitdir = {
+		follow_files = true
+	},
+	sign_priority = 6,
+	update_debounce = 100,
+	max_file_length = 40000, -- disable on huge files
 })

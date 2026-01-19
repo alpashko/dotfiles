@@ -5,4 +5,4 @@ require("lsp")
 require("autocmd")
 require("menu")
 
-vim.cmd.colorscheme("gruvbuddy")
+vim.cmd.colorscheme("tokyonight")
