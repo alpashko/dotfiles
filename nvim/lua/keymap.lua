@@ -43,16 +43,26 @@ vim.keymap.set("n", "<leader>st", function()
 end)
 
 local gs = require("gitsigns")
-
 vim.keymap.set("n", "]c", gs.next_hunk, { desc = "Next git hunk" })
 vim.keymap.set("n", "[c", gs.prev_hunk, { desc = "Prev git hunk" })
-
 vim.keymap.set("n", "<leader>hs", gs.stage_hunk, { desc = "Stage hunk" })
 vim.keymap.set("n", "<leader>hr", gs.reset_hunk, { desc = "Reset hunk" })
 vim.keymap.set("n", "<leader>hp", gs.preview_hunk, { desc = "Preview hunk" })
-
-vim.keymap.set("n", "<leader>hb", function()
-  gs.blame_line({ full = true })
-end, { desc = "Blame line" })
-
+vim.keymap.set("n", "<leader>hb", function() gs.blame_line({ full = true }) end, { desc = "Blame line" })
 vim.keymap.set("n", "<leader>hd", gs.diffthis, { desc = "Diff this file" })
+
+
+vim.keymap.set("n", "<leader>gs", "<cmd>Git<CR>", { silent = true })
+vim.keymap.set("n", "<leader>gd", "<cmd>Gdiffsplit<CR>", { silent = true })
+vim.keymap.set("n", "<leader>gc", "<cmd>Gcommit<CR>", { silent = true })
+vim.keymap.set("n", "<leader>gA", "<cmd>Gcommit --amend<CR>", { silent = true })
+vim.keymap.set("n", "<leader>gp", "<cmd>Git push<CR>", { silent = true })
+vim.keymap.set("n", "<leader>gP", "<cmd>Git pull<CR>", { silent = true })
+vim.keymap.set("n", "<leader>gb", "<cmd>Git blame<CR>", { silent = true })
+vim.keymap.set("n", "<leader>go", "<cmd>GBrowse<CR>", { silent = true })
+vim.keymap.set("v", "<leader>go", "<cmd>GBrowse<CR>", { silent = true })
+vim.keymap.set("n", "<leader>ga", "<cmd>Git add %<CR>", { silent = true })
+vim.keymap.set("n", "<leader>gu", "<cmd>Git restore --staged %<CR>", { silent = true })
+vim.keymap.set("n", "<leader>gr", "<cmd>Git rebase -i<CR>", { silent = true })
+vim.keymap.set("n", "<leader>gR", "<cmd>Git reset<CR>", { silent = true })
+vim.keymap.set("n", "<leader>gg", "<cmd>Ggrep ", { silent = false })

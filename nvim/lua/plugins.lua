@@ -173,9 +173,14 @@ vim.pack.add({
 })
 
 -- 8
+-- vim.pack.add({
+-- 	{ src = gh("folke/tokyonight.nvim") },
+-- })
+
 vim.pack.add({
-	{ src = gh("folke/tokyonight.nvim") },
+	{ src = gh("Mofiqul/vscode.nvim") },
 })
+
 
 -- 9
 vim.pack.add({
@@ -195,3 +200,9 @@ require("gitsigns").setup({
 	update_debounce = 100,
 	max_file_length = 40000, -- disable on huge files
 })
+
+-- 10
+vim.pack.add({
+	{ src = gh("tpope/vim-fugitive") },
+})
+
