@@ -177,9 +177,9 @@ vim.pack.add({
 -- 	{ src = gh("folke/tokyonight.nvim") },
 -- })
 
-vim.pack.add({
-	{ src = gh("Mofiqul/vscode.nvim") },
-})
+-- vim.pack.add({
+-- 	{ src = gh("Mofiqul/vscode.nvim") },
+-- })
 
 
 -- 9
