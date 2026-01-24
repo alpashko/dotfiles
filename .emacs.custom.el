@@ -8,7 +8,8 @@
      default))
  '(package-selected-packages
    '(dockerfile-mode go-mode gruber-darker-theme magit markdown-mode
-                     multiple-cursors paredit rust-mode yaml yaml-mode)))
+                     multiple-cursors paredit rust-mode xcscope yaml
+                     yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -1,6 +1,18 @@
 (setq custom-file "~/.emacs.custom.el")
-(load-theme 'gruber-darker t)
-;;(add-to-list 'default-frame-alist '(background-color . "honeydew"))
+;; (load-theme 'gruber-darker t)
+
+
+(require 'package)
+
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+
+(package-initialize)
+
+(add-to-list 'default-frame-alist '(background-color . "honeydew"))
+(set-face-attribute 'default nil
+                    :font "Menlo"
+                    :height 180)
 
 (defun display-line-numbers()
   (interactive)
@@ -51,7 +63,9 @@
 (setq select-enable-clipboard t)
 (setq select-enable-primary t)
 
-(xterm-mouse-mode 1)
-(mouse-wheel-mode 1)
+
+(require 'xcscope)
+(setq cscope-do-not-update-database t)
+(setq cscope-use-relative-paths t)
 
 (load-file custom-file)
