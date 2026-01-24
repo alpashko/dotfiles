@@ -172,16 +172,6 @@ vim.pack.add({
 	{ src = gh("mbbill/undotree") },
 })
 
--- 8
--- vim.pack.add({
--- 	{ src = gh("folke/tokyonight.nvim") },
--- })
-
--- vim.pack.add({
--- 	{ src = gh("Mofiqul/vscode.nvim") },
--- })
-
-
 -- 9
 vim.pack.add({
 	{ src = gh("lewis6991/gitsigns.nvim") },
