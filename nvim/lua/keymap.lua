@@ -3,6 +3,7 @@ vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 local fzf = require("fzf-lua")
 vim.keymap.set("n", "<leader>fd", fzf.files)
 vim.keymap.set("n", "<leader>/", fzf.live_grep)
+vim.keymap.set("n", "<leader>fb", fzf.buffers)
 vim.keymap.set("n", "<leader>en", function()
 	fzf.files({
 		cwd = vim.fn.stdpath("config")
@@ -53,7 +54,7 @@ vim.keymap.set("n", "<leader>hd", gs.diffthis, { desc = "Diff this file" })
 
 
 vim.keymap.set("n", "<leader>gs", "<cmd>Git<CR>", { silent = true })
-vim.keymap.set("n", "<leader>gd", "<cmd>Gdiffsplit<CR>", { silent = true })
+-- vim.keymap.set("n", "<leader>gd", "<cmd>Gdiffsplit<CR>", { silent = true })
 vim.keymap.set("n", "<leader>gc", "<cmd>Gcommit<CR>", { silent = true })
 vim.keymap.set("n", "<leader>gA", "<cmd>Gcommit --amend<CR>", { silent = true })
 vim.keymap.set("n", "<leader>gp", "<cmd>Git push<CR>", { silent = true })
