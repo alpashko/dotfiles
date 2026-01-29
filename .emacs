@@ -1,5 +1,5 @@
 (setq custom-file "~/.emacs.custom.el")
-;; (load-theme 'gruber-darker t)
+(load-theme 'gruber-darker t)
 
 
 (require 'package)
@@ -9,7 +9,7 @@
 
 (package-initialize)
 
-(add-to-list 'default-frame-alist '(background-color . "honeydew"))
+;; (add-to-list 'default-frame-alist '(background-color . "honeydew"))
 (set-face-attribute 'default nil
                     :font "Menlo"
                     :height 180)
@@ -24,6 +24,7 @@
 (ido-mode 1)
 (ido-everywhere 1)
 (show-paren-mode 1)
+(fringe-mode 0)
 
 (setq inhibit-startup-message t)
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
@@ -56,9 +57,11 @@
 (load "~/.emacs.rc/smex.el")
 (require 'smex)
 
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+(global-set-key "\C-c\C-m" 'execute-extended-command)
+(global-set-key (kbd "\C-c\C-m") 'smex)
+(global-set-key (kbd "\C-c\C-m") 'smex-major-mode-commands)
+;; (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 (setq select-enable-clipboard t)
 (setq select-enable-primary t)
