@@ -1,11 +1,14 @@
-window-height = 45
-window-width = 160
+window-height = 35
+window-width = 110
 
 theme = dark_plus
-font-family = "Iosevka"
-font-size = "20"
+# font-family = "Menlo"
+font-family = "Berkeley"
+font-size = "14"
 font-style = Regular
 macos-option-as-alt = true
+window-padding-x = 1
+window-padding-y = 1
 
 cursor-style = block
 cursor-style-blink = true
