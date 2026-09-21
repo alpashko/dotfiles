@@ -1,32 +1,21 @@
+-- lua_ls — tuned for Neovim config editing. lazydev.nvim supplies the runtime
+-- library paths, so we don't hardcode them here.
 return {
-    cmd = { 'lua-language-server' },
-    filetypes = { 'lua' },
-    root_markers = {
-        '.luarc.json',
-        '.luarc.jsonc',
-        '.luacheckrc',
-        '.stylua.toml',
-        'stylua.toml',
-        'selene.toml',
-        'selene.yml',
-        '.git',
+  settings = {
+    Lua = {
+      runtime = { version = 'LuaJIT' },
+      workspace = {
+        checkThirdParty = false,
+        library = { vim.env.VIMRUNTIME },
+      },
+      diagnostics = {
+        globals = { 'vim', 'Snacks' },
+        disable = { 'missing-fields' },
+      },
+      hint = { enable = true }, -- inlay hints
+      completion = { callSnippet = 'Replace' },
+      format = { enable = false }, -- stylua (via conform) handles formatting
+      telemetry = { enable = false },
     },
-    settings = {
-        Lua = {
-            runtime = {
-                version = "Lua 5.4",
-            },
-            completion = {
-                enable = true,
-            },
-            diagnostics = {
-                enable = true,
-                globals = { "vim" },
-            },
-            workspace = {
-                library = { vim.env.VIMRUNTIME },
-                checkThirdParty = false,
-            },
-        },
-    },
+  },
 }
