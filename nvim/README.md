@@ -2,7 +2,7 @@
 
 A modern, modular Neovim setup built on **[lazy.nvim](https://lazy.folke.io)**,
 targeting **Neovim 0.11+/0.12** with native LSP. Keeps the original
-green-on-black *hackertheme* aesthetic and personal touches (cursor trail, PDF
+green-on-black _hackertheme_ aesthetic and personal touches (cursor trail, PDF
 viewer) while pulling in the 2026 best-in-class plugin stack.
 
 > Rebuilt from an older vim-plug/packer config. A timestamped backup of the
@@ -30,19 +30,19 @@ colors/hackertheme.vim   the original colourscheme (default)
 
 External tools (most already present on this machine):
 
-| Tool          | Purpose                                  | Install (Arch)             |
-| ------------- | ---------------------------------------- | -------------------------- |
-| `git`         | lazy.nvim, gitsigns, fugitive            | `pacman -S git`            |
-| `ripgrep`     | grep picker, live grep                   | `pacman -S ripgrep`        |
-| `fd`          | file picker                              | `pacman -S fd`             |
-| `tree-sitter` | compiling TS parsers (main branch)       | `pacman -S tree-sitter-cli`|
-| `lazygit`     | `<leader>gg` git UI                      | `pacman -S lazygit`        |
-| `gh`          | octo.nvim (GitHub PRs/issues)            | `pacman -S github-cli`     |
-| `curl`        | kulala REST client                       | `pacman -S curl`           |
-| `pdftotext`   | PDF viewer (poppler)                     | `pacman -S poppler`        |
-| a C compiler  | TS parsers, LuaSnip jsregexp             | `pacman -S gcc`            |
-| Go toolchain  | go.nvim codegen (gomodifytags, impl, …)  | `pacman -S go`             |
-| Nerd Font     | icons in the UI                          | any Nerd Font              |
+| Tool          | Purpose                                 | Install (Arch)              |
+| ------------- | --------------------------------------- | --------------------------- |
+| `git`         | lazy.nvim, gitsigns, fugitive           | `pacman -S git`             |
+| `ripgrep`     | grep picker, live grep                  | `pacman -S ripgrep`         |
+| `fd`          | file picker                             | `pacman -S fd`              |
+| `tree-sitter` | compiling TS parsers (main branch)      | `pacman -S tree-sitter-cli` |
+| `lazygit`     | `<leader>gg` git UI                     | `pacman -S lazygit`         |
+| `gh`          | octo.nvim (GitHub PRs/issues)           | `pacman -S github-cli`      |
+| `curl`        | kulala REST client                      | `pacman -S curl`            |
+| `pdftotext`   | PDF viewer (poppler)                    | `pacman -S poppler`         |
+| a C compiler  | TS parsers, LuaSnip jsregexp            | `pacman -S gcc`             |
+| Go toolchain  | go.nvim codegen (gomodifytags, impl, …) | `pacman -S go`              |
+| Nerd Font     | icons in the UI                         | any Nerd Font               |
 
 Language servers and formatters are installed automatically by **Mason** on
 first launch (`:Mason` to inspect). A Nerd Font terminal is strongly recommended.
@@ -63,8 +63,8 @@ first launch (`:Mason` to inspect). A Nerd Font terminal is strongly recommended
 - **Treesitter:** `main` branch (required for 0.12) — highlighting, indent, folds
 - **Fuzzy finder / dashboard / notifier / indent / lazygit / terminal:**
   [snacks.nvim](https://github.com/folke/snacks.nvim)
-- **File explorer:** netrw (built-in, preferred) on `<leader>e`/`<leader>pv`/`<leader>E`
-- **File explorer (alt):** snacks explorer (`<leader>fE`), neo-tree (`<leader>fe`)
+- **File explorer:** Oil.nvim for directory buffers, with `-` to open the parent directory
+- **File explorer (alt):** snacks explorer (`<leader>fE`)
 - **Format / lint:** conform.nvim + nvim-lint
 - **Git:** gitsigns, fugitive, diffview, lazygit (via snacks)
 - **UX:** which-key, trouble, todo-comments, noice, flash, nvim-surround
@@ -90,100 +90,110 @@ Leader is **`<Space>`**. Press `<leader>` and wait for **which-key** to show the
 menu. Most-used:
 
 ### Find / files (snacks picker)
-| Key | Action |
-| --- | --- |
-| `<leader><space>` | Smart find files |
-| `<leader>ff` / `<leader>fg` | Find files / live grep |
-| `<leader>fr` / `<leader>fb` | Recent files / buffers |
-| `<leader>fd` / `<leader>fw` | Diagnostics / grep word |
-| `<C-p>` | Buffers (original muscle memory) |
-| `<leader>e` / `<leader>pv` | netrw explorer (current window) |
-| `<leader>E` | netrw side panel (`:Lexplore`) |
-| `<leader>fE` / `<leader>fe` | snacks explorer / neo-tree (alternatives) |
+| Key                         | Action                                                 |
+| --------------------------- | ------------------------------------------------------ |
+| `<leader><space>`           | Smart find files                                       |
+| `<leader>ff` / `<leader>fg` | Find files / live grep                                 |
+| `<leader>fr` / `<leader>fb` | Recent files / buffers                                 |
+| `<leader>fd` / `<leader>fw` | Diagnostics / grep word                                |
+| `<C-p>`                     | Buffers (original muscle memory)                       |
+| `-`                         | Oil: open the parent directory                         |
+| `:Explore`                  | Open a directory (Oil takes over the directory buffer) |
+| `<leader>fE`                | snacks explorer                                        |
 
 ### LSP (native `gr*` defaults + additions)
-| Key | Action |
-| --- | --- |
-| `gd` `gD` `gr` `gI` `gy` | definition, declaration, references, impl, type def |
-| `grn` `gra` | rename, code action (Neovim defaults) |
-| `K` `<C-S>` | hover, signature help (insert) |
-| `[d` `]d` | prev/next diagnostic |
-| `<leader>ca` `<leader>cr` `<leader>cf` | code action, rename, format |
-| `<leader>uh` | toggle inlay hints |
+
+| Key                                    | Action                                              |
+| -------------------------------------- | --------------------------------------------------- |
+| `gd` `gD` `gr` `gI` `gy`               | definition, declaration, references, impl, type def |
+| `grn` `gra`                            | rename, code action (Neovim defaults)               |
+| `K` `<C-S>`                            | hover, signature help (insert)                      |
+| `[d` `]d`                              | prev/next diagnostic                                |
+| `<leader>ca` `<leader>cr` `<leader>cf` | code action, rename, format                         |
+| `<leader>uh`                           | toggle inlay hints                                  |
 
 ### Git
-| Key | Action |
-| --- | --- |
-| `<leader>gg` | Lazygit |
-| `<leader>gd` `<leader>gf` | Diffview / file history |
-| `]h` `[h` | next / prev hunk |
+
+| Key                                                 | Action                               |
+| --------------------------------------------------- | ------------------------------------ |
+| `<leader>gg`                                        | Lazygit                              |
+| `<leader>gd` `<leader>gf`                           | Diffview / file history              |
+| `]h` `[h`                                           | next / prev hunk                     |
 | `<leader>hs` `<leader>hr` `<leader>hp` `<leader>hb` | stage / reset / preview / blame hunk |
 
 ### Diagnostics / Trouble
-| Key | Action |
-| --- | --- |
+
+| Key                       | Action                         |
+| ------------------------- | ------------------------------ |
 | `<leader>xx` `<leader>xX` | workspace / buffer diagnostics |
-| `<leader>xs` `<leader>xl` | symbols / LSP refs |
+| `<leader>xs` `<leader>xl` | symbols / LSP refs             |
 
 ### Debug (`<leader>d…`, DAP)
-| Key | Action |
-| --- | --- |
-| `<leader>db` `<leader>dB` | toggle / conditional breakpoint |
-| `<leader>dc` `<leader>dC` | continue·start / run to cursor |
-| `<leader>do` `<leader>di` `<leader>dO` | step over / into / out |
-| `<leader>du` `<leader>dE` | toggle DAP UI / REPL |
-| `<leader>dr` | Rust debuggables (rustaceanvim) |
+
+| Key                                    | Action                             |
+| -------------------------------------- | ---------------------------------- |
+| `<leader>db` `<leader>dB`              | toggle / conditional breakpoint    |
+| `<leader>dc` `<leader>dC`              | continue·start / run to cursor     |
+| `<leader>do` `<leader>di` `<leader>dO` | step over / into / out             |
+| `<leader>du` `<leader>dE`              | toggle DAP UI / REPL               |
+| `<leader>dr`                           | Rust debuggables (rustaceanvim)    |
 | `<leader>dh` `<leader>dt` `<leader>dL` | hover value / terminate / run last |
 
 ### Test (`<leader>t…`, neotest)
-| Key | Action |
-| --- | --- |
-| `<leader>tn` `<leader>tf` `<leader>ta` | run nearest / file / suite |
-| `<leader>tl` `<leader>td` | run last / debug nearest (DAP) |
+
+| Key                                    | Action                                |
+| -------------------------------------- | ------------------------------------- |
+| `<leader>tn` `<leader>tf` `<leader>ta` | run nearest / file / suite            |
+| `<leader>tl` `<leader>td`              | run last / debug nearest (DAP)        |
 | `<leader>ts` `<leader>tO` `<leader>to` | summary / output panel / output float |
-| `<leader>tw` `<leader>tS` | watch file / stop |
+| `<leader>tw` `<leader>tS`              | watch file / stop                     |
 
 ### Refactor & tasks
-| Key | Action |
-| --- | --- |
-| `<leader>re` `<leader>rv` `<leader>rb` | extract function / variable / block (visual) |
-| `<leader>rI` `<leader>rr` | inline variable / select refactor |
-| `<leader>Rr` `<leader>Rt` `<leader>Ra` | overseer run / toggle list / quick action |
-| `<leader>cs` | symbol outline panel |
-| `<leader>cp` `<leader>cv` | colour picker / convert |
-| `<leader>cg…` `<leader>cn…` | Go codegen / npm package (in go / package.json files) |
+
+| Key                                    | Action                                                |
+| -------------------------------------- | ----------------------------------------------------- |
+| `<leader>re` `<leader>rv` `<leader>rb` | extract function / variable / block (visual)          |
+| `<leader>rI` `<leader>rr`              | inline variable / select refactor                     |
+| `<leader>Rr` `<leader>Rt` `<leader>Ra` | overseer run / toggle list / quick action             |
+| `<leader>cs`                           | symbol outline panel                                  |
+| `<leader>cp` `<leader>cv`              | colour picker / convert                               |
+| `<leader>cg…` `<leader>cn…`            | Go codegen / npm package (in go / package.json files) |
 
 ### Database / HTTP / GitHub
-| Key | Action |
-| --- | --- |
-| `<leader>Bu` `<leader>Bf` `<leader>Ba` | database UI / find buffer / add connection |
+
+| Key                                                 | Action                                                      |
+| --------------------------------------------------- | ----------------------------------------------------------- |
+| `<leader>Bu` `<leader>Bf` `<leader>Ba`              | database UI / find buffer / add connection                  |
 | `<leader>Hs` `<leader>Ha` `<leader>Ht` `<leader>Hc` | HTTP send / send all / toggle view / copy as curl (`.http`) |
-| `<leader>ghp` `<leader>ghi` `<leader>ghr` | GitHub PRs / issues / start review (octo) |
+| `<leader>ghp` `<leader>ghi` `<leader>ghr`           | GitHub PRs / issues / start review (octo)                   |
 
 ### Editing & motion
-| Key | Action |
-| --- | --- |
-| `s` / `S` | flash jump / treesitter select |
-| `<C-h/j/k/l>` | move between splits (+ tmux/wezterm/kitty panes) |
-| `<A-h/j/k/l>` | resize split |
-| `<M-h/j/k/l>` | move line/selection |
-| `<M-arrows>` | treewalker: move by AST node |
-| `<leader>K` / `<leader>J` | treewalker: swap node up / down |
-| `<c-q>` / `<leader>m…` | multicursor: toggle cursor / add-match menu |
-| `<C-a>` / `<C-x>` | smart increment / decrement (bools, dates, semver) |
-| `;` / `M` | arrow file jumper menu / buffer bookmarks |
-| `<leader>wp` | pick window by letter |
-| `gS` | split/join arguments |
-| `gp` / `<leader>cf` | format buffer |
-| `<C-s>` | save · `<leader>U` undo tree |
-| `zR` `zM` `zp` | open / close all folds · peek fold (ufo) |
+
+| Key                       | Action                                             |
+| ------------------------- | -------------------------------------------------- |
+| `s` / `S`                 | flash jump / treesitter select                     |
+| `<C-h/j/k/l>`             | move between splits (+ tmux/wezterm/kitty panes)   |
+| `<A-h/j/k/l>`             | resize split                                       |
+| `<M-h/j/k/l>`             | move line/selection                                |
+| `<M-arrows>`              | treewalker: move by AST node                       |
+| `<leader>K` / `<leader>J` | treewalker: swap node up / down                    |
+| `<c-q>` / `<leader>m…`    | multicursor: toggle cursor / add-match menu        |
+| `<C-a>` / `<C-x>`         | smart increment / decrement (bools, dates, semver) |
+| `;` / `M`                 | arrow file jumper menu / buffer bookmarks          |
+| `<leader>wp`              | pick window by letter                              |
+| `gS`                      | split/join arguments                               |
+| `gp` / `<leader>cf`       | format buffer                                      |
+| `<C-s>`                   | save · `<leader>U` undo tree                       |
+| `zR` `zM` `zp`            | open / close all folds · peek fold (ufo)           |
 
 ### UI toggles (`<leader>u…`)
+
 spell `us` · wrap `uw` · diagnostics `ud` · inlay hints `uh` · indent `ug` ·
 format-on-save `uf` · diagnostic style `uv` · cursor trail `ut` · sticky context `ux`
 · zen `<leader>z`
 
 ### Terminal / misc
+
 `<F7>` or `<C-/>` toggle terminal · `<leader>.` scratch · `<leader>L` Lazy ·
 `<leader>cm` Mason · `<F2>` yank file path
 
@@ -205,7 +215,7 @@ format-on-save `uf` · diagnostic style `uv` · cursor trail `ut` · sticky cont
   them interactively with `<leader>Ba`. Keep credentials out of git (use a
   `connections.json` under `stdpath('data')/db_ui`, not the repo).
 - **GitHub (octo):** run `gh auth login` once; then `<leader>ghp` lists PRs.
-- **Seamless tmux/multiplexer nav:** `<C-h/j/k/l>` move between Neovim splits *and*
+- **Seamless tmux/multiplexer nav:** `<C-h/j/k/l>` move between Neovim splits _and_
   terminal multiplexer panes — but the **multiplexer side needs companion config**.
   For tmux, add to `~/.tmux.conf`:
   ```tmux

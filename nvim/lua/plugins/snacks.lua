@@ -12,7 +12,15 @@ return {
     quickfile = { enabled = true }, -- render the file before plugins load
     indent = { enabled = true }, -- indent guides + animated scope
     scope = { enabled = true }, -- text-object/jump by scope
-    scroll = { enabled = true }, -- smooth scrolling
+    scroll = {
+      enabled = true,
+      filter = function(buf)
+        return vim.g.snacks_scroll ~= false
+          and vim.b[buf].snacks_scroll ~= false
+          and vim.bo[buf].buftype ~= 'terminal'
+          and vim.bo[buf].filetype ~= 'oil'
+      end,
+    }, -- smooth scrolling, except in Oil buffers
     statuscolumn = { enabled = true }, -- pretty fold/sign/number column
     words = { enabled = true }, -- LSP reference highlight + ]] navigation
     input = { enabled = true }, -- nicer vim.ui.input
@@ -27,7 +35,7 @@ return {
     git = { enabled = true },
     gitbrowse = { enabled = true },
     lazygit = { enabled = true },
-    rename = { enabled = true }, -- LSP-aware file rename (used by neo-tree)
+    rename = { enabled = true },
     scratch = { enabled = true },
     terminal = { enabled = true },
     toggle = { enabled = true },
