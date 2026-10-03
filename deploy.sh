@@ -1,55 +1,79 @@
-#!/bin/bash
+#!/bin/sh
 
-set -e
+set -eu
 
-SCRIPT_DIR="$( cd "$( dirname "$BASH_SOURCE[0]" )" && pwd )"
+SCRIPT_DIR=$(CDPATH='' cd -P "$(dirname "$0")" && pwd -P)
 
-symlinkFile() {
-    filename="$SCRIPT_DIR/$1"
-    destination="$HOME/$2/$1"
-
-    mkdir -p $(dirname "$destination")
+symlink_file() {
+    source_file=$SCRIPT_DIR/$1
+    destination=$HOME/$2/$1
+    destination_dir=$(dirname "$destination")
 
     if [ -L "$destination" ]; then
-        echo "[WARNING] $filename already symlinked"
-        return
+        printf '[WARNING] %s is already a symlink; leaving it unchanged\n' "$destination"
+        return 0
     fi
 
     if [ -e "$destination" ]; then
-        echo "[ERROR] $destination exists but it's not a symlink. Please fix that manually"
-        exit 1
+        printf '[ERROR] %s exists and is not a symlink. Please resolve it manually.\n' "$destination" >&2
+        return 1
     fi
 
-    ln -s "$filename" "$destination"
-    echo "[OK] $filename -> $destination"
+    if [ ! -e "$source_file" ]; then
+        printf '[ERROR] Source does not exist: %s\n' "$source_file" >&2
+        return 1
+    fi
+
+    mkdir -p "$destination_dir"
+    ln -s "$source_file" "$destination"
+    printf '[OK] %s -> %s\n' "$source_file" "$destination"
 }
 
-deployManifest() {
-    for row in $(cat $SCRIPT_DIR/$1); do
-        if [[ "$row" =~ ^#.* ]]; then
+deploy_manifest() {
+    manifest=$1
+
+    if [ ! -f "$manifest" ]; then
+        printf '[ERROR] Manifest file not found: %s\n' "$manifest" >&2
+        return 1
+    fi
+
+    while IFS='|' read -r filename operation destination ||
+        [ -n "${filename:-}${operation:-}${destination:-}" ]; do
+        case ${filename:-} in
+        '' | \#*)
             continue
+            ;;
+        esac
+
+        if [ -z "${operation:-}" ]; then
+            printf '[ERROR] Invalid manifest row for %s: missing operation\n' "$filename" >&2
+            return 1
         fi
 
-        filename=$(echo $row | cut -d \| -f 1)
-        operation=$(echo $row | cut -d \| -f 2)
-        destination=$(echo $row | cut -d \| -f 3)
-
         case $operation in
-            symlink)
-                symlinkFile $filename $destination
-                ;;
-
-            *)
-                echo "[WARNING] Unknown operation $operation. Skipping..."
-                ;;
+        symlink)
+            symlink_file "$filename" "${destination:-}"
+            ;;
+        *)
+            printf '[WARNING] Unknown operation %s. Skipping...\n' "$operation" >&2
+            ;;
         esac
-    done
+    done <"$manifest"
 }
 
-if [ -z "$@" ]; then
-    echo "Usage: $0 <MANIFEST>"
-    echo "ERROR: no MANIFEST file is provided"
-    exit 1
+if [ "$#" -ne 1 ]; then
+    printf 'Usage: %s <MANIFEST>\n' "$0" >&2
+    if [ "$#" -eq 0 ]; then
+        printf 'ERROR: no MANIFEST file was provided\n' >&2
+    else
+        printf 'ERROR: provide exactly one MANIFEST file\n' >&2
+    fi
+    exit 2
 fi
 
-deployManifest $1
+case $1 in
+/*) manifest=$1 ;;
+*) manifest=$SCRIPT_DIR/$1 ;;
+esac
+
+deploy_manifest "$manifest"
