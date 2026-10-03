@@ -66,13 +66,11 @@ map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to other buffer" })
 -- <leader>bd (delete buffer keeping the window) is provided by snacks.bufdelete.
 
--- ── File explorer: netrw (preferred) ────────────────────────────────────────
--- netrw is the primary explorer. <leader>pv keeps the original muscle memory
--- (project view); <leader>e opens the current directory. Oil handles directory
--- buffers; the snacks explorer is available on <leader>fE.
-map('n', '<leader>pv', '<cmd>Explore<cr>', { desc = 'Explorer (netrw)' })
-map('n', '<leader>e', '<cmd>Explore<cr>', { desc = 'Explorer (netrw)' })
-map('n', '<leader>E', '<cmd>Lexplore<cr>', { desc = 'Explorer side panel (netrw)' })
+-- ── File explorer: oil (preferred) ────────────────────────────────────────
+map("n", "-", "<cmd>Oil<CR>", { desc = "Open current directory in Oil" })
+map("n", "<Space>-", function()
+	require("oil").toggle_float()
+end, { desc = "Toggle Oil floating window" })
 
 -- ── Diagnostics (the [d / ]d / <C-W>d defaults already exist in 0.11+) ───────
 -- Line diagnostics live on <leader>cd (see lua/config/lsp.lua); loclist dump here.

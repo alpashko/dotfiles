@@ -10,8 +10,6 @@ return {
 					show_hidden = true,
 				},
 			})
-			vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Browse files from here" })
-			vim.keymap.set("n", "<space>-", require("oil").toggle_float)
 		end,
 	},
 }
