@@ -16,6 +16,36 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- `nvim <dir>`: Oil lists the directory asynchronously, so its callback would
+-- queue behind the ~200 ms synchronous burst of VeryLazy plugin loads and the
+-- listing would appear late. When starting on a directory, fire VeryLazy only
+-- after Oil has drawn (OilEnter), with a timeout fallback. `:e .` is unaffected.
+if vim.fn.argc(-1) == 1 and vim.fn.isdirectory(vim.fn.argv(0, -1)) == 1 then
+  local Util = require('lazy.core.util')
+  Util.very_lazy = function()
+    local done = false
+    local function load()
+      if done or vim.v.exiting ~= vim.NIL then
+        return
+      end
+      done = true
+      vim.g.did_very_lazy = true
+      Util.track({ event = 'VeryLazy' })
+      vim.api.nvim_exec_autocmds('User', { pattern = 'VeryLazy', modeline = false })
+      Util.track()
+    end
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'OilEnter',
+      once = true,
+      callback = function()
+        vim.cmd.redraw() -- paint the listing before the plugin-load burst
+        vim.schedule(load)
+      end,
+    })
+    vim.defer_fn(load, 500) -- fallback if Oil never fires OilEnter
+  end
+end
+
 require('lazy').setup({
   spec = {
     { import = 'plugins' }, -- auto-import every lua/plugins/*.lua

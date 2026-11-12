@@ -71,8 +71,10 @@ return {
   -- on the runtimepath before we enable anything. Its config() owns the enable.
   {
     'neovim/nvim-lspconfig',
-    lazy = false,
-    priority = 900, -- after colourscheme (1000), before most VeryLazy specs
+    -- VeryLazy: config.lsp pulls in blink.cmp (+ luasnip, schemastore) which costs
+    -- ~50 ms; deferring it lets `nvim .` render Oil immediately. Servers attach
+    -- to already-open buffers when vim.lsp.enable runs.
+    event = 'VeryLazy',
     config = function()
       -- Wire the '*' capabilities, LspAttach keymaps and diagnostics, then enable
       -- the servers. config/lsp.lua is idempotent and safe to require here.
